@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureFinance - Login</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header class="page-header">
+            <div class="logo">
+                <svg viewBox="0 0 24 24"><path d="M12 2.25C11.5858 2.25 11.1811 2.41457 10.8803 2.71536L4.88033 8.71536C4.57954 9.01614 4.415 9.42082 4.415 9.835V16.585C4.415 18.3976 5.56064 19.9554 7.21487 20.59C8.32235 20.9991 9.53123 21.185 10.705 21.12C11.2721 21.0886 11.7766 21.4939 11.85 22.062C11.9443 22.7846 12.6322 23.2796 13.335 22.98C14.8885 22.3332 16.2084 21.218 17.11 19.79L18.8803 16.7154C19.1811 16.4146 19.3457 16.01 19.3457 15.595V9.835C19.3457 9.42082 19.1811 9.01614 18.8803 8.71536L12.8803 2.71536C12.5795 2.41457 12.1748 2.25 11.7607 2.25H12Z"/></svg>
+                <h1>SecureFinance</h1>
+            </div>
+            <p>Your financial data, secured with enterprise-grade encryption</p>
+        </header>
+
+        <main class="card">
+            <div class="card-header">
+                <h2>Welcome</h2>
+                <p>Login or create an account to get started</p>
+            </div>
+
+            <div class="toggle-buttons">
+                <button class="toggle-btn active" onclick="window.location.href='/';">Login</button>
+                <button class="toggle-btn" onclick="window.location.href='/signup-page';">Sign Up</button>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="********">
+                </div>
+
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <div class="encryption-note">
+                <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a3 3 0 00-3 3v1H6a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V8a2 2 0 00-2-2h-1V5a3 3 0 00-3-3zm-1 3v1h2V5a1 1 0 10-2 0z" clip-rule="evenodd" /></svg>
+                <span>All data is automatically encrypted before storage</span>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

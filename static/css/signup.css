@@ -1,0 +1,30 @@
+ @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background-color: #f9fafb; color: #101828;
+      display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+    .container { display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; }
+    .page-header { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    .logo { display: flex; align-items: center; gap: 10px; color: #416bbf; font-size: 28px; font-weight: 600; }
+    .logo svg { width: 32px; height: 32px; fill: #0f50d2; }
+    .page-header h1 { font-size: 28px; font-weight: 600; }
+    .page-header p { font-size: 16px; color: #475467; }
+    .card { background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e4e7ec; padding: 32px; width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 24px; }
+    .card-header h2 { font-size: 24px; font-weight: 600; color: #101828; margin-bottom: 4px; }
+    .card-header p { font-size: 16px; color: #475467; font-weight: 400; }
+    .toggle-buttons { display: flex; width: 100%; background-color: #f2f4f7; border-radius: 8px; padding: 4px; }
+    .toggle-btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; transition: all 0.2s ease; }
+    .toggle-btn:not(.active) { background-color: transparent; color: #475467; font-weight: 400; }
+    .toggle-btn.active { background-color: #ffffff; color: #101828; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); font-weight: 600; }
+    .signup-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 14px; font-weight: 600; color: #344054; }
+    .form-group input { width: 100%; padding: 12px 14px; font-size: 16px; color: #101828;
+      border: 1px solid #d0d5dd; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); background-color: #f8f8f8; }
+    .form-group input:focus { outline: none; border-color: #007bff; box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1); }
+    .submit-btn { width: 100%; background-color: #0a6cb2; color: #ffffff; font-size: 16px; font-weight: 600;
+      padding: 12px; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s ease; }
+    .submit-btn:hover { background-color: #074e87; }
+    .encryption-note { display: flex; align-items: center; justify-content: center; gap: 8px;
+      background-color: #f9fafb; padding: 12px; border-radius: 8px; font-size: 14px; color: #475467; }
+    .encryption-note svg { width: 16px; height: 16px; fill: #98a2b3; }

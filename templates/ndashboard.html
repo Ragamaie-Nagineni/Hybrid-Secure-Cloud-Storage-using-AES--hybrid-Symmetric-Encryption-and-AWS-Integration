@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Financial Data Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="encryption-badge">AES-256 + RSA + Matrix Encryption</div>
+      <nav class="main-nav">
+        <a href="#" class="nav-link welcome-link" id="welcomeUser">Welcome, user</a>
+        <a href="nlogin.html" class="nav-link logout-link">
+          Logout <i data-lucide="log-out" class="nav-icon"></i>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Secure Financial Data Management</h1>
+        <p class="hero-subtitle">
+          Military-grade encryption for your sensitive financial information. Your data is encrypted before it ever leaves your device.
+        </p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary">Get Started</a>
+          <a href="#" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon icon-1"><i data-lucide="lock"></i></div>
+            <h3 class="feature-title">Client-Side Encryption</h3>
+            <p class="feature-description">Data encrypted on your device before transmission</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon icon-2"><i data-lucide="shield"></i></div>
+            <h3 class="feature-title">AWS KMS Integration</h3>
+            <p class="feature-description">Enterprise-grade key management system</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon icon-3"><i data-lucide="database"></i></div>
+            <h3 class="feature-title">Secure Storage</h3>
+            <p class="feature-description">Encrypted storage with SHA-256 integrity verification</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-section">
+      <div class="container">
+        <div class="dashboard-container">
+          <h2 class="dashboard-title">Financial Data Dashboard</h2>
+          <p class="dashboard-subtitle">Manage your financial information</p>
+          <div class="security-badge">
+            <i data-lucide="shield-check"></i> All data is automatically secured
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="data-card">
+              <label class="form-label">Assets ($)</label>
+              <input type="number" id="assets-amount" class="form-input" value="250000" />
+            </div>
+
+            <div class="data-card">
+              <label class="form-label">Liabilities ($)</label>
+              <input type="number" id="liabilities-amount" class="form-input" value="85000" />
+            </div>
+
+            <div class="data-card">
+              <label class="form-label">Loans ($)</label>
+              <input type="number" id="loans-amount" class="form-input" value="45000" />
+            </div>
+
+            <div class="data-card">
+              <label class="form-label">Investments ($)</label>
+              <input type="number" id="investments-amount" class="form-input" value="120000" />
+            </div>
+
+            <div class="data-card">
+              <label class="form-label">Monthly Expenses ($)</label>
+              <input type="number" id="expenses-amount" class="form-input" value="3500" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="save-data-section">
+      <div class="container">
+        <div class="dashboard-container">
+          <div class="save-data-bar">
+            <div class="save-data-text">
+              <h3>Save Your Financial Data</h3>
+              <p>Your data will be securely stored and protected</p>
+            </div>
+            <button id="saveDataBtn" class="btn btn-primary">
+              <i data-lucide="save" class="btn-icon"></i> Save Securely
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
