@@ -1,10 +1,5 @@
 import boto3
 
-# Initialize DynamoDB resource
-dynamodb = boto3.resource('dynamodb', region_name='ap-south-1')
-
-# Table name you created in AWS console
-TABLE_NAME = 'drakz_users'
-
-# Reference to your DynamoDB table
+dynamodb = boto3.resource('dynamodb', region_name='eu-north-1')
+TABLE_NAME = 'securefinance_users'
 user_table = dynamodb.Table(TABLE_NAME)

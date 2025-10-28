@@ -1,8 +1,9 @@
 from cryptography.fernet import Fernet
 
-# You can save this key securely (e.g., in AWS Secrets Manager)
-# For demo purposes, a fixed key is okay
-key = Fernet.generate_key()
+# Use a fixed key (same key every time)
+# Replace this string with the one you generated above
+key = b"rnDFLecaKEOy81CuW33XE5JmdWZzhRwfRhr6oFq2ngg="
+
 fernet = Fernet(key)
 
 def encrypt_text(text):
