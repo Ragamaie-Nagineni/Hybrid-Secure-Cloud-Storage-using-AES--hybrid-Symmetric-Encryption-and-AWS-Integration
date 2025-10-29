@@ -38,78 +38,47 @@ document.addEventListener("DOMContentLoaded", () => {
     let encryptionPassword = sessionStorage.getItem('tempUserPass');
 
     // --- 2. NOTIFICATION FUNCTION ---
-    // --- 2. NOTIFICATION FUNCTION (Using Pop-up Alerts) ---
-function showNotification(message, type = 'info') {
-    // We can add an emoji based on the type for a little visual cue
-    let prefix = '';
-    if (type === 'success') {
-        prefix = '✅ ';
-    } else if (type === 'error') {
-        prefix = '❌ ';
-    } else if (type === 'warning') {
-        prefix = '⚠️ ';
-    }
-
-    // Use the standard browser alert
-    alert(prefix + message);
-
-    // Add a console log so you can still see messages in the dev tools
-    if (type === 'error') {
-        console.error("Notification:", message);
-    } else if (type === 'warning') {
-        console.warn("Notification:", message);
-    } else {
-        console.log("Notification:", message);
-    }
-}
-    // function showNotification(message, type = 'info') {
-    //     const colors = {
-    //         success: '#28a745', error: '#dc3545', info: '#007bff'
-    //     };
-    //     const notification = document.createElement('div');
-    //     notification.className = 'notification';
-    //     // Basic styling for the notification
-    //     notification.style.padding = '15px';
-    //     notification.style.color = 'white';
-    //     notification.style.marginBottom = '10px';
-    //     notification.style.borderRadius = '5px';
-    //     notification.style.transition = 'opacity 0.3s';
-    //     notification.style.backgroundColor = colors[type] || colors['info'];
-    //     notification.textContent = message;
+    function showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
         
-    //     // Ensure notificationArea exists
-    //     if (notificationArea) {
-    //         notificationArea.appendChild(notification);
-    //     } else {
-    //         // Fallback if notification area isn't in the HTML
-    //         alert(message);
-    //         return;
-    //     }
+        // Add to notification area
+        if (notificationArea) {
+            notificationArea.appendChild(notification);
+        } else {
+            // Fallback to alert if notification area doesn't exist
+            alert(message);
+            return;
+        }
         
-    //     // Auto-remove after 3 seconds
-    //     setTimeout(() => {
-    //         notification.style.opacity = '0';
-    //         setTimeout(() => notification.remove(), 300);
-    //     }, 3000);
-    // }
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 5000);
+    }
 
     // --- 3. AUTHENTICATION & DATA LOADING ---
     async function checkAuthentication() {
         try {
-            const response = await fetch('/api/me');
-            const result = await response.json();
+            // In a real app, this would call your backend
+            // For demo purposes, we'll simulate authentication
+            const username = sessionStorage.getItem('username') || 'Demo User';
+            welcomeUser.innerHTML = `<i data-lucide="user" class="nav-icon"></i> Welcome, ${username}`;
+            lucide.createIcons();
             
-            if (result.loggedIn) {
-                welcomeUser.innerHTML = `<i data-lucide="user" class="nav-icon"></i> Welcome, ${result.username}`;
-                lucide.createIcons();
-                // Now that we're logged in, load the encrypted data
-                await loadEncryptedData();
-            } else {
-                window.location.href = '/'; // Not logged in
-            }
+            // Now that we're logged in, load the encrypted data
+            await loadEncryptedData();
         } catch (error) {
             console.error('Auth check failed:', error);
-            window.location.href = '/';
+            // In a real app, redirect to login
+            showNotification('Authentication failed. Please log in again.', 'error');
         }
     }
 
@@ -126,10 +95,9 @@ function showNotification(message, type = 'info') {
         }
 
         try {
-            // Call the "dumb" /api/load_data route
-            const response = await fetch('/api/load_data');
-            const result = await response.json();
-            const encryptedBlob = result.data;
+            // In a real app, this would fetch from your API
+            // For demo, we'll use localStorage
+            const encryptedBlob = localStorage.getItem('encryptedFinancialData');
 
             if (encryptedBlob) {
                 let decryptedDataString;
@@ -152,7 +120,7 @@ function showNotification(message, type = 'info') {
                 
                 // Populate the forms
                 fieldIds.forEach(id => {
-                    const field = document.getElementById(`${id}-amount`); // Use the '-amount' suffix
+                    const field = document.getElementById(`${id}-amount`);
                     if (field && financialData[id]) {
                         field.value = financialData[id];
                     }
@@ -221,24 +189,17 @@ function showNotification(message, type = 'info') {
         // -------------------------------------------------
 
         try {
-            // 4. Send ONLY the encrypted blob to the server
-            showNotification("Saving encrypted data to AWS...", "info");
-            const response = await fetch('/api/save_data', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ data: encryptedBlob }) // Send the blob with its prefix
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                showNotification('Data saved securely to AWS!', 'success');
-            } else {
-                showNotification(`Error: ${result.error}`, 'error');
-            }
+            // In a real app, this would send to your API
+            // For demo, we'll use localStorage
+            showNotification("Saving encrypted data...", "info");
+            localStorage.setItem('encryptedFinancialData', encryptedBlob);
+            
+            setTimeout(() => {
+                showNotification('Data saved securely!', 'success');
+            }, 1000);
         } catch (error) {
             console.error('Save error:', error);
-            showNotification('Failed to save data to server.', 'error');
+            showNotification('Failed to save data.', 'error');
         }
     });
 
@@ -334,7 +295,7 @@ function showNotification(message, type = 'info') {
                 legend: {
                     position: 'bottom',
                     labels: {
-                        color: '#fff',
+                        color: '#1d2939',
                         font: { family: 'Inter', size: 12 }
                     }
                 }
@@ -415,8 +376,6 @@ function showNotification(message, type = 'info') {
         // For now, we'll just leave its dummy data.
     }
 
-
     // --- 7. RUN ON PAGE LOAD ---
     checkAuthentication();
-    
 });
