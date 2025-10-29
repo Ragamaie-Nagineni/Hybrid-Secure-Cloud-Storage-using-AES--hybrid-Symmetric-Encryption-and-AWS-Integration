@@ -2,3 +2,6 @@ boto3
 cryptography
 numpy
 pycryptodome
+flask
+flask-cors
+bcrypt

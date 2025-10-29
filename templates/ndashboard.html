@@ -11,6 +11,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 </head>
 
 <body>
@@ -28,7 +29,10 @@
           <i data-lucide="user" class="nav-icon"></i> Welcome, User
         </a>
         <form action="/api/logout" method="get">
-  <button type="submit">Logout</button>
+  <form id="logoutForm" action="/api/logout" method="get">
+          <button type="submit" class="nav-link logout-btn">
+            <i data-lucide="log-out" class="nav-icon"></i> Logout
+          </button>
 </form>
 
       </nav>
@@ -48,6 +52,7 @@
     <section class="dashboard-section">
       <div class="container">
         <div class="dashboard-container">
+          <div id="notificationArea" class="notification-area"></div>
           <div class="dashboard-header">
             <h2 class="dashboard-title">Your Financial Overview</h2>
             <p class="dashboard-subtitle">All figures in USD</p>
@@ -252,6 +257,7 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/crypto-logic.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
 </html>
