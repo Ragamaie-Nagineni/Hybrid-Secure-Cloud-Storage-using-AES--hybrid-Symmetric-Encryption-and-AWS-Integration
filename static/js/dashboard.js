@@ -292,6 +292,73 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+    // --- 8. EXPORT REPORT (Generate PDF from Decrypted Data) ---
+const exportBtn = document.getElementById("exportDataBtn");
+if (exportBtn) {
+  exportBtn.addEventListener("click", async () => {
+    showNotification("Preparing PDF report...", "info");
+
+    try {
+      // Reuse logic from loadEncryptedData()
+      const response = await fetch("/api/load_data");
+      if (!response.ok) throw new Error(`Server responded with ${response.status}`);
+      const { data: encryptedBlob } = await response.json();
+
+      if (!encryptedBlob || encryptedBlob === "{}") {
+        showNotification("No saved data found to export.", "warning");
+        return;
+      }
+
+      // Ensure we have the encryption key
+      let password = sessionStorage.getItem("tempUserPass");
+      if (!password) {
+        password = prompt("Enter your password to decrypt your report:");
+        if (!password) return showNotification("Export cancelled.", "warning");
+      }
+
+      // --- DECRYPTION SWITCH ---
+      let decryptedDataString;
+      if (encryptedBlob.startsWith(AES_PREFIX)) {
+        decryptedDataString = decryptWithAES(encryptedBlob, password);
+      } else if (encryptedBlob.startsWith(MATRIX_PREFIX)) {
+        decryptedDataString = decryptWithMatrix(encryptedBlob, password);
+      } else {
+        throw new Error("Unknown encryption format.");
+      }
+
+      if (!decryptedDataString) throw new Error("Decryption failed. Wrong password?");
+
+      const data = JSON.parse(decryptedDataString);
+
+      // --- Generate PDF (client-side) ---
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(16);
+      doc.text("Financial Report", 14, 20);
+      doc.setFontSize(10);
+      doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 28);
+
+      let y = 40;
+      for (const [key, value] of Object.entries(data)) {
+        doc.text(`${key}: ${value}`, 14, y);
+        y += 8;
+        if (y > 270) {
+          doc.addPage();
+          y = 20;
+        }
+      }
+
+      doc.save("financial_report.pdf");
+      showNotification("Report exported successfully!", "success");
+
+    } catch (err) {
+      console.error("Export failed:", err);
+      showNotification("Failed to export report. " + err.message, "error");
+    }
+  });
+}
+
 
     if (logoutForm) {
          logoutForm.addEventListener('submit', (e) => {
