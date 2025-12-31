@@ -17,7 +17,7 @@ It allows users to upload files, encrypt them locally, store them securely on AW
 
 ## 🏗 Technologies Used
 - **Frontend:** HTML, CSS, JavaScript  
-- **Backend:** Python (Flask/FastAPI/Django — update based on your project)  
+- **Backend:** Python 
 - **Cloud:** AWS S3  
 - **Encryption:** AES Cryptography  
 
